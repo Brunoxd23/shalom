@@ -1,0 +1,25 @@
+/*
+  Global theme helpers for light/dark mode.
+  Aplica fundo branco e texto preto para .light,
+  fundo escuro e texto branco para .dark.
+*/
+
+html.light,
+body.light {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+html.dark,
+body.dark {
+  background: #050505 !important;
+  color: #fff !important;
+}
+
+/* Garante transição suave */
+body,
+html {
+  transition:
+    background 0.3s,
+    color 0.3s;
+}

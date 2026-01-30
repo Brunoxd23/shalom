@@ -47,23 +47,30 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 
       {/* Filtros de Gênero */}
       <div className="flex flex-wrap justify-center gap-3 mb-12">
-        {filters.map((filter) => (
-          <button
-            key={filter}
-            onClick={() => onFilterChange(filter)}
-            className={`
-              px-6 py-3 rounded-sm text-[10px] font-black uppercase tracking-[0.2em] 
-              transition-all duration-300 border
-              ${
-                genderFilter === filter
-                  ? "gold-gradient text-black border-[#d4af37] shadow-lg scale-105"
-                  : "bg-white/5 text-zinc-400 border-white/10 hover:border-[#d4af37]/50 hover:text-white"
-              }
-            `}
-          >
-            {filter}
-          </button>
-        ))}
+        {filters.map((filter) => {
+          const isLight =
+            typeof window !== "undefined" &&
+            window.localStorage.getItem("shalom_theme") === "light";
+          return (
+            <button
+              key={filter}
+              onClick={() => onFilterChange(filter)}
+              className={`
+                px-6 py-3 rounded-sm text-[10px] font-black uppercase tracking-[0.2em] 
+                transition-all duration-300 border
+                ${
+                  genderFilter === filter
+                    ? "gold-gradient text-black border-[#d4af37] shadow-lg scale-105"
+                    : isLight
+                      ? "bg-white/5 text-zinc-400 border-black/10 hover:border-[#d4af37]/50 hover:text-[#d4af37]"
+                      : "bg-white/5 text-zinc-400 border-white/10 hover:border-[#d4af37]/50 hover:text-white"
+                }
+              `}
+            >
+              {filter}
+            </button>
+          );
+        })}
       </div>
 
       {/* Contador de Resultados */}

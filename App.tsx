@@ -153,7 +153,9 @@ const App: React.FC = () => {
       : products.filter((p) => p.gender === genderFilter);
 
   return (
-    <div className="min-h-screen bg-[#050505]">
+    <div
+      className={`min-h-screen transition-colors duration-300 ${typeof window !== "undefined" && window.localStorage.getItem("shalom_theme") === "light" ? "bg-white text-black" : "bg-[#050505] text-white"}`}
+    >
       {toast && (
         <Toast
           message={toast.message}

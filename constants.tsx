@@ -1,6 +1,6 @@
 import { Product, Testimonial } from "./types";
 
-export const WHATSAPP_NUMBER = "5511964494147";
+export const WHATSAPP_NUMBER = "5511979853312";
 
 // 🔒 Hash SHA-256 da senha do painel admin
 // A senha real não fica exposta no código, apenas seu hash
@@ -116,32 +116,5 @@ export const INITIAL_PRODUCTS: Product[] = [
     intensity: "feminino & sofisticado",
     image:
       "https://u4auhby5fx.ufs.sh/f/bgTicoNWbjXkrg3iwOjlnsvNuwohx9SDWfc67pQeYKzZVbtO",
-  },
-];
-
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    id: "1",
-    name: "Ricardo Mendes",
-    role: "Empresário",
-    content:
-      "O perfume Victorioso Nero é simplesmente magnífico. A fixação dura o dia todo e o aroma é extremamente exclusivo.",
-    stars: 5,
-  },
-  {
-    id: "2",
-    name: "Beatriz Costa",
-    role: "Arquiteta",
-    content:
-      "Atendimento impecável via WhatsApp. Recebi meu perfume em 2 dias aqui em SP. Produto 100% original.",
-    stars: 5,
-  },
-  {
-    id: "3",
-    name: "Carlos Alberto",
-    role: "Colecionador",
-    content:
-      "A melhor seleção de perfumes árabes que já encontrei no Brasil. Recomendo fortemente a Shalom.",
-    stars: 5,
   },
 ];

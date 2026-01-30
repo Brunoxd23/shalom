@@ -17,17 +17,28 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     name: "",
     description: "",
     price: "R$ ",
+    oldPrice: "",
+    discountPercent: undefined,
     volume: "100ml",
     gender: "Masculino",
     intensity: "Intensa",
     image: "",
+    installments: 6,
+    installmentInterest: false,
   });
   const [uploading, setUploading] = useState(false);
   const [imageFile, setImageFile] = useState<string | null>(null);
 
   useEffect(() => {
     if (productToEdit) {
-      setFormData(productToEdit);
+      setFormData({
+        ...formData,
+        ...productToEdit,
+        oldPrice: productToEdit.oldPrice || "",
+        discountPercent: productToEdit.discountPercent ?? undefined,
+        installments: productToEdit.installments ?? 6,
+        installmentInterest: productToEdit.installmentInterest ?? false,
+      });
     }
   }, [productToEdit]);
 
@@ -88,7 +99,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
             <div>
               <label className="text-[9px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">
-                Preço (ex: R$ 250,00)
+                Preço Atual (ex: R$ 199,00)
               </label>
               <input
                 required
@@ -98,6 +109,77 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                   setFormData({ ...formData, price: e.target.value })
                 }
               />
+            </div>
+            <div>
+              <label className="text-[9px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">
+                Preço Antigo (opcional)
+              </label>
+              <input
+                className="w-full bg-white/5 border border-white/10 p-3 text-sm outline-none focus:border-[#d4af37] text-white"
+                value={formData.oldPrice || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, oldPrice: e.target.value })
+                }
+                placeholder="R$ 250,00"
+              />
+            </div>
+            <div>
+              <label className="text-[9px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">
+                Desconto (%)
+              </label>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                className="w-full bg-white/5 border border-white/10 p-3 text-sm outline-none focus:border-[#d4af37] text-white"
+                value={formData.discountPercent ?? ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    discountPercent: e.target.value
+                      ? Number(e.target.value)
+                      : undefined,
+                  })
+                }
+                placeholder="10"
+              />
+            </div>
+            <div>
+              <label className="text-[9px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">
+                Parcelas
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={12}
+                className="w-full bg-white/5 border border-white/10 p-3 text-sm outline-none focus:border-[#d4af37] text-white"
+                value={formData.installments ?? 6}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    installments: Number(e.target.value),
+                  })
+                }
+                placeholder="6"
+              />
+            </div>
+            <div>
+              <label className="text-[9px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">
+                Com Juros?
+              </label>
+              <select
+                className="w-full bg-black border border-[#d4af37] p-3 text-sm outline-none focus:border-[#d4af37] text-white placeholder:text-zinc-400"
+                value={formData.installmentInterest ? "true" : "false"}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    installmentInterest: e.target.value === "true",
+                  })
+                }
+              >
+                <option value="false">Sem Juros</option>
+                <option value="true">Com Juros</option>
+              </select>
             </div>
           </div>
 
@@ -134,14 +216,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                 Gênero
               </label>
               <select
-                className="w-full bg-white/5 border border-white/10 p-3 text-sm outline-none text-white appearance-none"
+                className="w-full bg-black border border-[#d4af37] p-3 text-sm outline-none focus:border-[#d4af37] text-white appearance-none"
                 value={formData.gender}
                 onChange={(e) =>
                   setFormData({ ...formData, gender: e.target.value as any })
                 }
               >
-                <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
                 <option value="Unissex">Unissex</option>
               </select>
             </div>

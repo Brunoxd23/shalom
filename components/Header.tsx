@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toggleTheme } from "../toggleTheme";
 
 interface HeaderProps {
   isAdmin: boolean;
@@ -31,7 +32,16 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5">
+      <header
+        className={`sticky top-0 z-50 border-b backdrop-blur-xl transition-colors duration-300
+          ${
+            typeof window !== "undefined" &&
+            window.localStorage.getItem("shalom_theme") === "light"
+              ? "bg-white/95 border-black/10 text-black"
+              : "bg-[#050505]/95 border-white/5 text-white"
+          }
+        `}
+      >
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -154,6 +164,26 @@ const Header: React.FC<HeaderProps> = ({
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
+            {/* Botão alternar tema */}
+            <button
+              onClick={toggleTheme}
+              className="border border-[#d4af37] text-[#d4af37] p-2 rounded-sm hover:bg-[#d4af37] hover:text-black transition-all shadow-lg"
+              title="Alternar tema claro/escuro"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 4.95l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                />
+              </svg>
+            </button>
             {isAdmin ? (
               <button
                 onClick={onLogout}
